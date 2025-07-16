@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <link rel="icon" href="D.jpeg">
+<script>
+        // Apply saved theme immediately to prevent FOUC
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark'; // Default to dark mode
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+
+    <style>
+       
+        .linkedin-logo-container {
+            position: relative;
+            display: inline-block;
+            padding: 0px; /* Space for glowing border */
+        }
+        .linkedin-logo {
+            width: 20px; /* Adjust size as needed */
+            height: 20px;
+            display: block;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            border-radius: 6px; /* Subtle rounding */
+        }
+        /* Pseudo-element for glowing border */
+        .linkedin-logo-container::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            z-index: 2;
+        }
+        .linkedin-logo-container:hover::before {
+            border-color: rgba(10, 102, 194, 0.5); /* LinkedIn blue, semi-transparent */
+            box-shadow: 0 0 12px 3px rgba(10, 102, 194, 0.8); /* Glowing border effect */
+            animation: glowPulse 1.5s infinite ease-in-out; /* Pulsing animation */
+        }
+        .linkedin-logo-container:hover .linkedin-logo {
+            transform: scale(1.05); /* Slight zoom */
+            filter: brightness(1.1); /* Subtle brightness boost */
+        }
+        /* Keyframe for pulsing glow */
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 0 0 12px 3px rgba(10, 102, 194, 0.8);
+            }
+            50% {
+                box-shadow: 0 0 20px 5px rgba(10, 102, 194, 1);
+            }
+        }
+    </style>
+
+     <style>
+        /* Default light mode variables */
+        :root 
+        {
+           --background-color: #1a1a1a;
+            --text-color: #ffffff;
+            --link-color: #66b3ff;
+            --button-bg: #333333;
+            --button-text: #ffffff;
+
+            body {
+            margin: 0;
+            color: #000;
+            background: #1a1a1a;
+            font-family: 'Varela Round', 'Roboto', 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+            ::-webkit-scrollbar 
+        {
+            background-color: transparent;
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb 
+        {
+            background: linear-gradient(orange, orangered);
+            border-radius: 100px;
+
+        }  
+
+            .t {
+            display: flex;
+            justify-content: center;
+            font-family: 'Varela Round', 'Roboto', 'JetBrains Mono', sans-serif;
+            font-size: 16px;
+        }
+
+        .t h1 {
+            font-size: 50px;
+            font-family: 'Varela Round', sans-serif;
+            font-weight: 400;
+            margin: 0.5rem 0;
+            color: #e6e5e5;
+        }
+
+        .t a {
+            font-size: 40px;
+            font-family: 'Varela Round', sans-serif;
+            font-weight: 400;
+            text-decoration: none;
+            color: #e6e5e5;
+        }
+
+        .text {
+            display: flex;
+            justify-content: left;
+            font-family: 'Varela Round', 'Roboto', 'JetBrains Mono', sans-serif;
+            font-size: 16px;
+            color: #e6e5e5;
+        }
+
+        .text p {
+            font-size: 20px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            margin: 0.5rem 0;
+            line-height: 1.5; /* Improve readability */
+            color: #e6e5e5;
+        }
+
+        .word-5
+    {
+        color: rgb(248, 250, 135)
+    }
+            
+        }
+
+        /* Dark mode variables */
+        [data-theme="dark"] 
+        {
+            
+        --background-color: #e0d8d8;
+            --text-color: #000000;
+            --link-color: #0066cc;
+            --button-bg: #f0f0f0;
+            --button-text: #000000;
+
+            body {
+            margin: 0;
+            color: #000;
+            background: #e0d8d8;
+            font-family: 'Varela Round', 'Roboto', 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+            ::-webkit-scrollbar 
+            {
+                background-color: transparent;
+                width: 10px;
+            }
+
+            ::-webkit-scrollbar-thumb 
+            {
+                background: linear-gradient(#248CC7, #69FAB4);
+                border-radius: 100px;
+
+            }  
+
+            .t {
+            display: flex;
+            justify-content: center;
+            font-family: 'Varela Round', 'Roboto', 'JetBrains Mono', sans-serif;
+            font-size: 16px;
+        }
+
+        .t h1 {
+            font-size: 50px;
+            font-family: 'Varela Round', sans-serif;
+            font-weight: 400;
+            margin: 0.5rem 0;
+            color: #000000;
+        }
+
+        .t a {
+            font-size: 40px;
+            font-family: 'Varela Round', sans-serif;
+            font-weight: 400;
+            text-decoration: none;
+            color: #000000;
+        }
+
+        .text {
+            display: flex;
+            justify-content: left;
+            font-family: 'Varela Round', 'Roboto', 'JetBrains Mono', sans-serif;
+            font-size: 16px;
+            color: #000000;
+        }
+
+        .text p {
+            font-size: 20px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            margin: 0.5rem 0;
+            line-height: 1.5; /* Improve readability */
+            color: #000000;
+        }
+
+        .word-5
+    {
+        color: rgb(224, 62, 151)
+    }
+           
+            
+        }
+
+        /* Apply variables to elements */
+        body 
+        {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .toggle-button {
+            position: fixed;
+            top: 5px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-button:hover {
+            opacity: 0.8;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+    </style>
+
+    <style>
+        /* General styles */
+        
+
+        section {
+            flex: 1;
+            margin: 0px; /* 10px left/right margin */
+            padding: 0rem;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            background-color: transparent;
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(#248CC7, #69FAB4);
+            border-radius: 100px;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #000000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+        }
+
+        .navbar a {
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-family: 'Varela Round', 'Arial', sans-serif;
+            font-size: 16px;
+        }
+
+        .navbar a:hover {
+            background-color: #575757;
+            border-radius: 15px;
+           
+        }
+
+        .navbar a.active {
+            background-color: #4CAF50;
+            
+            border-radius: 15px;
+        }
+
+        /* Footer nav styling */
+        .nav 
+            {
+                margin-top: auto; /* Push nav to bottom */
+                padding: 10px;
+                background-color: #000000; /* Muted blue for nav background */
+                text-align: center;
+            }
+
+            .nav a 
+            {
+                color: #ffffff; /* White text for links */
+                text-decoration: none;
+                font-weight: bold;
+                margin: 0 10px;
+            }
+
+            .nav a:hover 
+            {
+                background-color: #1b2020;
+            border-radius: 15px;
+            }
+
+        /* Content styling */
+        .border {
+            margin: 0 auto; /* Center horizontally */
+            max-width: 800px; /* Limit width on large screens */
+            padding: 15px;
+            border: 2px solid #c41ab5;
+            border-radius: 15px;
+        }
+
+        .t {
+            display: flex;
+            justify-content: center;
+            font-family: 'Varela Round', 'Roboto', 'JetBrains Mono', sans-serif;
+            font-size: 16px;
+        }
+
+        .t h1 {
+            font-size: 50px;
+            font-family: 'Varela Round', sans-serif;
+            font-weight: 400;
+            margin: 0.5rem 0;
+            color: #e6e5e5;
+        }
+
+        .t a {
+            font-size: 40px;
+            font-family: 'Varela Round', sans-serif;
+            font-weight: 400;
+            text-decoration: none;
+            color: #e6e5e5;
+        }
+
+        .text {
+            display: flex;
+            justify-content: left;
+            font-family: 'Varela Round', 'Roboto', 'JetBrains Mono', sans-serif;
+            font-size: 16px;
+            color: #e6e5e5;
+        }
+
+        .text p {
+            font-size: 20px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            margin: 0.5rem 0;
+            line-height: 1.5; /* Improve readability */
+            color: #e6e5e5;
+        }
+
+        
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            section {
+                margin: 0 10px;
+                padding: 0.5rem;
+            }
+
+            .navbar {
+                flex-direction: column; /* Stack links vertically */
+            }
+
+            .navbar a {
+                padding: 10px;
+                font-size: 14px;
+                width: 100%; /* Full width */
+                box-sizing: border-box;
+            }
+
+            .border {
+                margin: 0 10px; /* Smaller margins */
+                padding: 10px;
+            }
+
+            .t h1 {
+                font-size: 36px; /* Smaller heading */
+            }
+
+            .t a {
+                font-size: 28px; /* Smaller name */
+            }
+
+            .text p {
+                font-size: 16px; /* Smaller paragraph */
+            }
+
+            .nav a {
+                display: inline-block;
+                margin: 5px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar a {
+                padding: 8px;
+                font-size: 12px;
+            }
+
+            .border {
+                margin: 0 5px; /* Minimal margins */
+                padding: 8px;
+            }
+
+            .t h1 {
+                font-size: 28px;
+            }
+
+            .t a {
+                font-size: 22px;
+            }
+
+            .text p {
+                font-size: 14px;
+            }
+
+            .nav a {
+                font-size: 11px;
+                margin: 3px;
+            }
+
+            
+        }
+
+        .word-5
+    {
+        color: rgb(248, 250, 135)
+    }
+    </style>
+</head>
+<body>
+    <section>
+        <button class="toggle-button" onclick="toggleTheme()"></button>
+        <br>
+        <div class="border">
+            <div class="t">
+                <h1>Streamfunk</h1>
+            </div>
+            <div class="text">
+                <p>I am a graduate of <span class="word-5">Don Bosco School, Liluah</span>, having completed my higher 
+                    secondary education in 2025. I was honoured to serve as the <span class="word-5">co-valedictorian</span>
+                    of my batch in both the Indian <span class="word-5">Indian Certificate of Secondary Education (ICSE)</span>
+                    in 2023 and the <span class="word-5">Indian School Certificate (ISC)</span> examinations in 2025.</p>
+            </div>
+        </div>
+        <br>
+        <div class="nav">
+            <a href="index.html" target="_blank" class="linkedin-logo-container">
+                <div class="lol">
+                © Debaditya Majumder
+                </div>
+        </a>
+            
+            <a href="https://www.linkedin.com/in/debaditya-majumder-71a204319/" target="_blank" class="linkedin-logo-container">
+        LinkedIn
+    </a>
+        </div>
+
+        <script>
+        // Function to toggle theme
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateButtonText();
+        }
+
+        // Function to update button text
+        function updateButtonText() {
+            const button = document.querySelector('.toggle-button');
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            button.textContent = currentTheme === 'dark' ? '☀️' : '🌑';
+        }
+
+        // Apply saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateButtonText();
+        });
+    </script>
+    </section>
+</body>
+</html>
