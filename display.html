@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamline Plot from Stream Function</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+        }
+        #streamlineOutput {
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.26.2/full/pyodide.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Streamline Plot from Stream Function</h1>
+        <p>Click to generate streamlines for the stream function ψ = (x² + y²)^(n/2) sin(nθ).</p>
+        <button onclick="generateStreamlines()">Generate Streamlines</button>
+        <div id="streamlineOutput">
+            <img id="streamlineImage" src="" alt="Streamline plot will appear here">
+        </div>
+    </div>
+
+    <script>
+        async function loadPyodideAndPackages() {
+            let pyodide = await loadPyodide();
+            await pyodide.loadPackage("matplotlib");
+            await pyodide.loadPackage("numpy");
+            return pyodide;
+        }
+
+        let pyodideReadyPromise = loadPyodideAndPackages();
+
+        async function generateStreamlines() {
+    let pyodide = await pyodideReadyPromise;
+
+    let pythonCode = `
+import matplotlib
+matplotlib.use("Agg")
+
+import matplotlib.pyplot as plt
+import numpy as np
+from io import BytesIO
+from pyodide.ffi import to_js
+
+x = np.linspace(-3, 3, 50)
+y = np.linspace(-3, 3, 50)
+X, Y = np.meshgrid(x, y)
+
+theta = 340
+n = 180 / theta
+
+def compute_theta(X, Y):
+    return np.arctan2(Y, X)
+
+psi = (X**2 + Y**2)**(n/2) * np.sin(n * compute_theta(X, Y))
+
+dy = y[1] - y[0]
+dx = x[1] - x[0]
+U = np.gradient(psi, dy, axis=0)
+V = -np.gradient(psi, dx, axis=1)
+
+plt.figure(figsize=(6, 6))
+plt.streamplot(X, Y, U, V, color='blue', linewidth=1, density=1.5)
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title(f'Streamlines from Stream Function ψ = (x² + y²)^{{n/2}} sin(nθ)')
+plt.grid(True)
+
+buf = BytesIO()
+plt.savefig(buf, format='png')
+buf.seek(0)
+data = buf.read()
+buf.close()
+plt.close()
+
+to_js(data)
+`;
+
+    try {
+        let result = await pyodide.runPythonAsync(pythonCode);
+        let blob = new Blob([result], { type: "image/png" });
+        let reader = new FileReader();
+        reader.onloadend = function () {
+            document.getElementById("streamlineImage").src = reader.result;
+        };
+        reader.readAsDataURL(blob);
+    } catch (error) {
+        alert("Error generating streamline plot: " + error.message);
+        console.error(error);
+    }
+}
+
+    </script>
+</body>
+</html>
