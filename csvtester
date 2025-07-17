@@ -1,0 +1,97 @@
+import csv
+import math
+# Data to be written to the CSV file
+point=50
+red_fac=1
+n=point+2
+k=2
+size = 2*n -1
+rows, cols = (n, n)
+frr=[[0 for _ in range(n-1)] for _ in range(2*point+1)]
+brr = [[0 for _ in range(point)] for _ in range(2*point+1)]
+mrr = [[0 for _ in range(n-1)] for _ in range(n)]
+arr = [[0 for _ in range(n)] for _ in range(n)]
+crr= [[0 for _ in range(2*point+1)] for _ in range(2*point+1)]
+for i in range(n):  # Changed n-1 to n
+    for j in range(n):  # Changed n-1 to n
+        if (j==0):
+            arr[i][j]=n-2-i
+        elif (i==n-1):
+            arr[i][j]=j-1
+        else:
+            arr[i][j]=0
+
+for i in range(n):  # Changed n-1 to n
+    for j in range(n-1):  # Changed n-1 to n
+        if (j==n-2):
+            mrr[i][j]=n-2-i
+        elif (i==n-1):
+            mrr[i][j]=j-point
+        else:
+            mrr[i][j]=0
+
+def angle(x,y):
+    omega=0
+    if x!=0 :
+        omega=abs(math.atan(y/x))
+        if x<0 and y>0:
+            omega = math.pi -omega
+        elif x<0 and y<0:
+            omega = math.pi +omega
+        elif x>0 and y<0:
+            omega = 2*math.pi - omega
+        elif x<0 and y==0:
+            return math.pi
+    elif x==0 and y>0:
+        return math.pi/2
+    elif x==0 and y<0:
+        return 1.5*math.pi
+    
+    return omega
+    
+    
+def streamfun(x,y):
+    if x==0 and y==0:
+        return 0
+    psi = k*math.log(x**2+y**2)*0.5
+    return psi
+
+def streamfunc(x,y):
+    return 4*x*y
+
+#for right
+for i in range(n):
+    for j in range(n):
+        x=arr[n-1][j]/red_fac
+        
+        y=arr[i][0]/red_fac
+        if (j==0):
+            arr[i][j]=arr[i][j]
+        elif (i==n-1):
+            arr[i][j]=arr[i][j]
+        else:
+            frr[i][j-1]=streamfun(x,y)
+            frr[2*point-i][j-1]= streamfun(x,-y)
+#for left
+for i in range(n):
+    for j in range(n-1):
+        x=mrr[n-1][j]/red_fac
+        
+        y=mrr[i][point]/red_fac
+        if (j==point):
+            arr[i][j]=arr[i][j]
+        elif (i==n-1):
+            arr[i][j]=arr[i][j]
+        else:
+            brr[i][j]=streamfun(x,y)
+            brr[2*point-i][j]= streamfun(x,-y)
+
+
+for i in range(2*point+1):
+    crr[i]=brr[i]+frr[i]
+# Open the CSV file in write mode ('w') with newline='' to prevent extra blank rows
+with open('bat1.csv', 'w', newline='') as file:
+    writer = csv.writer(file)
+    writer.writerows(crr)
+
+print("CSV file 'cat.csv' created successfully using csv module.")
